@@ -11,32 +11,35 @@ namespace Mexpressapp.Controllers
             {
                 new Veiculo
                 {
-                    Id = "1",
+                    Id = 1,
                     Marca = "Toyota",
                     Modelo = "Corolla",
-                    Cinlidrada = 1800,
+                    Cilindrada = 1800,
+                    Ano = 2020,
                     Cavalos = 140,
-                    Capacidadelitros = 13.2,
-                    Kmrodados = 50000,
+                    CapacidadeLitros = 13.2,
+                    KmRodados = 50000,
                     Disponivel = true,
-                    Preçodia = 150.00m,
+                    PrecoDia = 150.00m,
                     Placa = "ABC-1234"
                 },
                 new Veiculo
                 {
-                    Id = "2",
+                    Id = 2,
                     Marca = "Honda",
                     Modelo = "Civic",
-                    Cinlidrada = 2000,
+                    Ano = 2019,
+                    Cilindrada = 2000,
                     Cavalos = 158,
-                    Capacidadelitros = 12.4,
-                    Kmrodados = 30000,
-                    Disponivel = false,
-                    Preçodia = 170.00m,
+                    CapacidadeLitros = 12.4,
+                    KmRodados = 30000,
+                    Disponivel = true,
+                    PrecoDia = 170.00m,
                     Placa = "DEF-5678"
                 }
             };
-            return View(veiculos);
+            var veiculosDisponiveis = veiculos.Where(v => v.Disponivel).ToList();
+            return View(veiculosDisponiveis);
         }
     }
 }

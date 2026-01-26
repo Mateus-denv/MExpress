@@ -1,13 +1,8 @@
 ﻿@model IEnumerable<Mexpressapp.Models.Veiculo>
 
-@if (Model != null && Model.Any())
-{
-	<h1>Bem-vindo ao Mexpressapp!</h1>
-}
-else
-{
-	<h1>Nenhum veiculo disponivel no momento.</h1>
-}
+
+<p>Model é null? @(Model == null)</p>
+<p>Quantidade de veículos: @(Model?.Count() ?? 0)</p>
 
 <h2>
 	Veiculos disponiveis
@@ -19,24 +14,27 @@ else
         <td>Modelo</td>
 		<td>Ano</td>
 		<td>Placa</td>
-        <td>Cinlidrada</td>
+        <td>Cilindrada</td>
 		<td>Cavalos</td>
 		<td>Valor Diaria</td>
 		<td>Km rodados</td>
+		<td>Litragem</td>
 		<td>Disponivel</td>
     </tr>
 
 	@foreach (var v in Model ?? Enumerable.Empty<Mexpressapp.Models.Veiculo>())
 	{
 		<tr>
+
 			<td>@v.Marca</td>
 			<td>@v.Modelo</td>
 			<td>@v.Ano</td>
 			<td>@v.Placa</td>
-			<td>@v.Cinlidrada</td>
+			<td>@v.Cilindrada</td>
 			<td>@v.Cavalos</td>
-			<td>@v.Preçodia</td>
-			<td>@v.Kmrodados</td>
+			<td>@v.PrecoDia</td>
+			<td>@v.KmRodados</td>
+			<td>@v.CapacidadeLitros</td>
 			<td>@(v.Disponivel ? "Sim" : "Nao")</td>
 		</tr>
 	}
