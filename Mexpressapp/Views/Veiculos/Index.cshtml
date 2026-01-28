@@ -4,22 +4,26 @@
 <p>Model é null? @(Model == null)</p>
 <p>Quantidade de veículos: @(Model?.Count() ?? 0)</p>
 
+<p>
+		<a asp-action="Create">Cadastrar novo veículo</a>
+</p>
+
 <h2>
 	Veiculos disponiveis
 </h2>
 
 <table>
     <tr>
-        <td>Marca</td>
-        <td>Modelo</td>
-		<td>Ano</td>
-		<td>Placa</td>
-        <td>Cilindrada</td>
-		<td>Cavalos</td>
-		<td>Valor Diaria</td>
-		<td>Km rodados</td>
-		<td>Litragem</td>
-		<td>Disponivel</td>
+        <td>Marca |</td>
+        <td>Modelo |</td>
+		<td>Ano |</td>
+		<td>Placa |</td>
+        <td>Cilindrada |</td>
+		<td>Cavalos |</td>
+		<td>Valor Diaria |</td>
+		<td>Km rodados |</td>
+		<td>Litragem | <td>
+		<td>Disponivel |</td>
     </tr>
 
 	@foreach (var v in Model ?? Enumerable.Empty<Mexpressapp.Models.Veiculo>())

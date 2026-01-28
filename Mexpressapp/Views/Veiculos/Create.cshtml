@@ -1,0 +1,78 @@
+﻿@model Mexpressapp.Models.Veiculo
+
+<h1>Cadastrar Veículo</h1>
+
+<form action="Create" method="post">
+
+	@Html.AntiForgeryToken()
+
+	<div>
+		<label asp-for="Marca"></label> @*Legenda*@
+		<input asp-for="Marca" /> @*Campo para digitação*@
+		<span asp-validation-for="Marca"></span> @*Mensagem de validação*@
+	</div>
+
+	<div>
+		<label asp-for="Modelo"></label>
+		<input asp-for="Modelo" />
+		<span asp-validation-for="Modelo"></span>
+	</div>
+
+	<div>
+		<label asp-for="Ano"></label>
+		<input asp-for="Ano" />
+		<span asp-validation-for="Ano"></span>
+	</div>
+
+	<div>
+		<label asp-for="Cilindrada"></label> 
+		<input asp-for="Cilindrada" />
+		<span asp-validation-for="Cilindrada"></span>
+	</div>
+
+	<div>
+		<label asp-for="Cavalos"></label> 
+		<input asp-for="Cavalos" />
+		<span asp-validation-for="Cavalos"></span>
+	</div>
+
+	<div>
+		<label asp-for="CapacidadeLitros"></label>
+		<input asp-for="CapacidadeLitros" />
+		<span asp-validation-for="CapacidadeLitros"></span>
+	</div>
+
+	<div>
+		<label asp-for="KmRodados"></label> 
+		<input asp-for="KmRodados" />
+		<span asp-validation-for="KmRodados"></span>
+	</div>
+
+	<div>
+		<label asp-for="PrecoDia"></label>
+		<input asp-for="PrecoDia" />
+		<span asp-validation-for="PrecoDia"></span>
+	</div>
+
+	<div>
+		<label asp-for="Placa"></label> 
+		<input asp-for="Placa" />
+		<span asp-validation-for="Placa"></span>
+	</div>
+
+	<div>
+		<label asp-for="Disponivel"></label> 
+		<input asp-for="Disponivel" />
+		<span asp-validation-for="Disponivel"></span>
+	</div>
+
+	<button type="submit">Salvar</button>
+
+</form>
+
+@*Inclui scripts de validação*@
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}
