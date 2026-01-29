@@ -13,8 +13,8 @@ namespace Mexpressapp.Controllers
             _context = context;
         }
         public IActionResult Index()
-        {
-            var veiculos = _context.Veiculos.Where(v => v.Disponivel).ToList();
+        {   // var veiculos = _context.Veiculos.Where(v => v.Disponivel).ToList(); <- filtra apenas veículos disponíveis
+            var veiculos = _context.Veiculos.ToList(); // Busca todos os veículos no banco de dados
             return View(veiculos);
         }
 
