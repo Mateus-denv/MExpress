@@ -40,6 +40,11 @@
 			<td>@v.KmRodados</td>
 			<td>@v.CapacidadeLitros</td>
 			<td>@(v.Disponivel ? "Sim" : "Nao")</td>
+			<td>
+				<a asp-action="Edit" asp-route-id="@v.Id">Editar</a> |
+				<a asp-action="Delete" asp-route-id="@v.Id">Excluir</a>
+			</td>
 		</tr>
 	}
+
 </table>

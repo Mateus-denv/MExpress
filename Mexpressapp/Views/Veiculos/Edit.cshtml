@@ -1,0 +1,40 @@
+﻿@model Veiculo
+
+<h2>Edit Veiculo</h2>
+
+<form asp-action="Edit">
+	<input type="hidden" asp-for="Id"/>
+
+	<label>Marca</label>
+	<input type="text" name="Marca" asp-for="Marca" />
+
+	<label>Modelo</label>
+	<input type="text" name="Modelo" asp-for="Modelo" />
+
+	<label>Ano</label>
+	<input type="number" name="Ano" asp-for="Ano" />
+
+	<label>Placa</label>
+	<input type="text" name="Placa" asp-for="Placa" />
+	
+	<label>Cilindrada</label>
+	<input type="number" name="Cilindrada" asp-for="Cilindrada" />
+
+	<label>Cavalos</label>
+	<input type="number" name="Cavalos" asp-for="Cavalos" />
+
+	<label>PrecoDia</label>
+	<input type="number" name="PrecoDia" asp-for="PrecoDia" />
+
+	<label>KmRodados</label>
+	<input type="number" name="KmRodados" asp-for="KmRodados" />
+
+	<label>CapacidadeLitros</label>
+	<imput type="number" name="CapacidadeLitros" asp-for="KmRodados">
+
+	<label>Disponivel</label>
+	<input type="checkbox" name="Disponivel" asp-for="Disponivel" />
+
+	<button type="submit">Salvar</button>
+</form>
+

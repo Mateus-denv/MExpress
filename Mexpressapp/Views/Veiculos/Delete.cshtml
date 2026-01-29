@@ -1,0 +1,12 @@
+﻿@model Veiculo
+
+<h2>Delete Veiculo</h2>
+
+<p>Tem certeza que deseja excluir este veiculo?</p>
+<p>@Model.Marca - @Model.Modelo</p> @* Exibe a marca e o modelo do veículo a ser excluído *@
+
+<form asp-action="Delete"> 
+	<input type="hidden" name="name" value="" asp-action="Id" /> @* Campo oculto para enviar o Id do veículo *@
+	<button type="submit">Excluir</button> @* Botão para confirmar a exclusão *@
+	<a asp-action="Index">Cancelar</a> @* Link para cancelar e voltar à lista de veículos *@
+</form>
