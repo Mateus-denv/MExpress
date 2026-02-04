@@ -5,19 +5,50 @@ using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// =======================
+// SERVICES
+// =======================
+
+// MVC + Razor Pages
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
+// DbContext with SQL Server
 builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Identity
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => // Alterado para ApplicationUser
 {
     options.SignIn.RequireConfirmedAccount = false; // Alterado para false
-}).AddEntityFrameworkStores<AppDbContext>(); // Alterado para AppDbContext
+}).AddRoles<IdentityRole>().AddEntityFrameworkStores<AppDbContext>(); // Alterado para AppDbContext e Adiciona suporte a Roles
 
+// =======================
+// Build app
+// =======================
 var app = builder.Build();
+
+// =======================
+// SEED (Roles / Admin)
+// =======================
+
+using (var scope = app.Services.CreateScope())
+{
+    await DbInitializer.SeedRolesAsyns(scope.ServiceProvider);
+
+    // Temporario para garantir que o usuário admin tenha a role Admin.
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    var adminUser = await userManager.FindByEmailAsync("admin@mexpress.com");
+    if (adminUser != null && !await userManager.IsInRoleAsync(adminUser, "Admin"))
+    {
+           await userManager.AddToRoleAsync(adminUser, "Admin");
+
+    }
+}
+
+// =======================
+// Pipeline
+// =======================
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -28,6 +59,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles(); // Permite que o site use arquivos estáticos (CSS, JS, imagens, etc).
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();

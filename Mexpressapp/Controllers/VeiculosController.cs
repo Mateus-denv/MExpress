@@ -1,9 +1,12 @@
 ﻿using Mexpressapp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Mexpressapp.Data;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace Mexpressapp.Controllers
 {
+    [Authorize(Roles = "Admin")] // Garante que apenas usuários autenticados possam acessar as ações deste controlador
     public class VeiculosController : Controller
     {
 
