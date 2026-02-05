@@ -6,10 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Mexpressapp.Controllers
 {
-    [Authorize(Roles = "Admin")] // Garante que apenas usuários autenticados possam acessar as ações deste controlador
     public class VeiculosController : Controller
     {
-
         private readonly AppDbContext _context;
         public VeiculosController(AppDbContext context)
         {
@@ -20,7 +18,7 @@ namespace Mexpressapp.Controllers
             var veiculos = _context.Veiculos.ToList(); // Busca todos os veículos no banco de dados
             return View(veiculos);
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -40,6 +38,7 @@ namespace Mexpressapp.Controllers
             return View(veiculo); // Se inválido, retorna à view com o modelo
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(int id) // Recebe o id do veículo a ser editado
         {
             var veiculo = _context.Veiculos.Find(id); // Busca o veículo no banco
@@ -69,7 +68,8 @@ namespace Mexpressapp.Controllers
             }
             return View(veiculo);
         }
-        
+
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             var veiculo = _context.Veiculos.Find(id);

@@ -1,11 +1,18 @@
 ﻿@model IEnumerable<Mexpressapp.Models.Veiculo>
 
+@*  *@
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+
 
 <p>Model é null? @(Model == null)</p>
 <p>Quantidade de veículos: @(Model?.Count() ?? 0)</p>
 
 <p>
-		<a asp-action="Create">Cadastrar novo veículo</a>
+	@if (User.IsInRole("Admin"))
+	{
+		<a asp-action="Create" class="btn btn-success">Novo Veículo</a>
+	}
 </p>
 
 <h2>
@@ -41,8 +48,11 @@
 			<td>@v.CapacidadeLitros</td>
 			<td>@(v.Disponivel ? "Sim" : "Nao")</td>
 			<td>
-				<a asp-action="Edit" asp-route-id="@v.Id">Editar</a> |
-				<a asp-action="Delete" asp-route-id="@v.Id">Excluir</a>
+				@if (User.IsInRole("Admin"))
+				{
+					<a asp-action="Edit" asp-route-id="@v.Id">Editar</a>
+					<a asp-action = "Delete" asp-route-id = "@v.Id" >Excluir</a>
+				}
 			</td>
 		</tr>
 	}
