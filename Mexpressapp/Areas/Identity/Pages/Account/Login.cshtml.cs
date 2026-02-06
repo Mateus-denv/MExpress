@@ -115,8 +115,16 @@ namespace Mexpressapp.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    var user = await _signInManager.UserManager.FindByEmailAsync(Input.Email);
+
+                    if (user != null && await _signInManager.UserManager.IsInRoleAsync(user, "Admin"))
+                    {
+                        return RedirectToAction("Index", "Dashboard"); // Admin vai pro Dashboard
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Veiculos"); // Usuário comum vai pra lista
+                    }
                 }
                 if (result.RequiresTwoFactor)
                 {

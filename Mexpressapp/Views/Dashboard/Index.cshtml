@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h1>Dashboard</h1>
+
+<div style="display:flex; gap:20px; margin-top:20px;">
+
+    <div style="padding:20px; background:#0d6efd; color:white; border-radius:10px;">
+        <h3>Total de Veículos</h3>
+        <h1>@ViewBag.Total</h1>
+    </div>
+
+    <div style="padding:20px; background:#198754; color:white; border-radius:10px;">
+        <h3>Disponíveis</h3>
+        <h1>@ViewBag.Disponiveis</h1>
+    </div>
+
+    <div style="padding:20px; background:#dc3545; color:white; border-radius:10px;">
+        <h3>Indisponíveis</h3>
+        <h1>@ViewBag.Indisponiveis</h1>
+    </div>
+
+</div>
+
+<hr />
+
+<a asp-controller="Veiculos" asp-action="Create" class="btn btn-primary">➕ Cadastrar Veículo</a>
+<a asp-controller="Veiculos" asp-action="Index" class="btn btn-secondary">🚗 Ver Veículos</a>
