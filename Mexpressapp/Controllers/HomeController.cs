@@ -1,11 +1,9 @@
 using System.Diagnostics;
 using Mexpressapp.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Mexpressapp.Controllers
 {
-    [Authorize(Roles = "User")]
     public class HomeController : Controller
     {
         public IActionResult Index()

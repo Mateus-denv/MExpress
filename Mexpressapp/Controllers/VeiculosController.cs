@@ -13,16 +13,11 @@ namespace Mexpressapp.Controllers
         {
             _context = context;
         }
-        // GET: Veiculos
-        // Lista os viículos disponíveis para aluguel. O método Index é responsável por buscar os veículos no banco de dados e retornar a view correspondente.
         public IActionResult Index()
         {   // var veiculos = _context.Veiculos.Where(v => v.Disponivel).ToList(); <- filtra apenas veículos disponíveis
             var veiculos = _context.Veiculos.ToList(); // Busca todos os veículos no banco de dados
             return View(veiculos);
         }
-
-        // GET: Veiculos/Create
-        // Exibe o formulário para criar um novo veículo. O método Create é responsável por retornar a view de criação de veículo.
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
@@ -42,8 +37,7 @@ namespace Mexpressapp.Controllers
 
             return View(veiculo); // Se inválido, retorna à view com o modelo
         }
-        // GET: Veiculos/Edit/5
-        // Exibe o formulário para editar um veículo existente. O método Edit é responsável por buscar o veículo pelo id e retornar a view de edição.
+
         [Authorize(Roles = "Admin")]
         public IActionResult Edit(int id) // Recebe o id do veículo a ser editado
         {
@@ -75,8 +69,6 @@ namespace Mexpressapp.Controllers
             return View(veiculo);
         }
 
-        // GET: Veiculos/Delete/5
-        // Exibe a confirmação para excluir um veículo. O método Delete é responsável por buscar o veículo pelo id e retornar a view de confirmação de exclusão.
         [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
