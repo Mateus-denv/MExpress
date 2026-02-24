@@ -105,30 +105,37 @@ namespace Mexpressapp.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
-
+             
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+
+                var user = await _signInManager.UserManager.FindByEmailAsync(Input.Email); // Verifica se o usuário existe e se a conta está ativa
+                if (user != null && user.Ativo)
+                {
+                    ModelState.AddModelError(string.Empty, "Sua conta está inativa. Por favor, entre em contato com o suporte.");
+                    return Page();
+                }
+
+                // Realiza o login usando o email e senha fornecidos, e verifica se a conta está ativa
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    var user = await _signInManager.UserManager.FindByEmailAsync(Input.Email);
 
-                    if (user != null && await _signInManager.UserManager.IsInRoleAsync(user, "Admin"))
+                    if (await _signInManager.UserManager.IsInRoleAsync(user, "Admin"))
                     {
-                        return RedirectToAction("Index", "Dashboard"); // Admin vai pro Dashboard
+                        return RedirectToAction("Index", "Dashboard");// Admin vai pro Dashboard
                     }
-                    else
-                    {
-                        return RedirectToAction("Index", "Veiculos"); // Usuário comum vai pra lista
-                    }
+                    return RedirectToAction("Index", "Veiculos"); // Usuário comum vai pra lista
                 }
+
                 if (result.RequiresTwoFactor)
                 {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                    return RedirectToPage("./LoginWith2fa", 
+                        new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
                 }
                 if (result.IsLockedOut)
                 {

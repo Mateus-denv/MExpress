@@ -36,14 +36,17 @@ using (var scope = app.Services.CreateScope())
 {
     await DbInitializer.SeedRolesAsyns(scope.ServiceProvider);
 
-    // Temporario para garantir que o usuário admin tenha a role Admin.
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-    var adminUser = await userManager.FindByEmailAsync("admin@mexpress.com");
-    if (adminUser != null && !await userManager.IsInRoleAsync(adminUser, "Admin"))
+    var services = scope.ServiceProvider;
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    if (!await roleManager.RoleExistsAsync("Admin"))
     {
-           await userManager.AddToRoleAsync(adminUser, "Admin");
-
+        await roleManager.CreateAsync(new IdentityRole("Admin"));
     }
+    if (!await roleManager.RoleExistsAsync("User"))
+    {
+        await roleManager.CreateAsync(new IdentityRole("User"));
+    }
+
 }
 
 // =======================
